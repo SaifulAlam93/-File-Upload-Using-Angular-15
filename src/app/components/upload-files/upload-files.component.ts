@@ -35,6 +35,8 @@ export class UploadFilesComponent implements OnInit {
         next: (event: any) => {
           if (event.type === HttpEventType.UploadProgress) {
             this.progressInfos[idx].value = Math.round(100 * event.loaded / event.total);
+            console.log(event.loaded);
+            console.log(event.total);
           } else if (event instanceof HttpResponse) {
             const msg = file.name + ": Successful!";
             this.message.push(msg);
@@ -64,5 +66,18 @@ export class UploadFilesComponent implements OnInit {
         this.upload(i, this.selectedFiles[i]);
       }
     }
+  }
+
+  deleteFile(name: any) {
+
+    this.uploadService.deleteFiles(name).subscribe({
+      next: (event: any) => {
+        this.fileInfos = this.uploadService.getFiles();
+      },
+      error: (err: any) => {
+      }
+
+    })
+
   }
 }

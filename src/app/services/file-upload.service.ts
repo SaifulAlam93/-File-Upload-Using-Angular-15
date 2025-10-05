@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FileUploadService {
-  private baseUrl = 'http://192.168.20.203:8080';
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
@@ -25,5 +25,8 @@ export class FileUploadService {
 
   getFiles(): Observable<any> {
     return this.http.get(`${this.baseUrl}/image/fileSystem`);
+  }
+  deleteFiles(name:any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/image/name/${name}`);
   }
 }
